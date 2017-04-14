@@ -1,0 +1,158 @@
+apply plugin: 'com.android.application'
+apply from: '../quality/quality.gradle'
+
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 0
+
+def packageName = "me.donnie.github"
+
+def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+    defaultConfig {
+        applicationId packageName
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versionMajor * 100 + versionMinor * 10 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+
+        buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
+        buildConfigField "String", "API_BASE_URL", "\"https://api.github.com/\""
+        buildConfigField "String", "API_OAUTH_URL", "\"https://github.com/login/oauth/\""
+        buildConfigField "String", "API_TRENDING_URL", "\"http://trending.codehub-app.com/\""
+
+        buildConfigField "String", "GITHUB_CLIENT_ID", "\"e0c1640074d6e23acecd\""
+        buildConfigField "String", "GITHUB_SECRET", "\"79537f81e49da27a7a219da617728a009a770ee1\""
+        buildConfigField "String", "REDIRECT_URL", "\"https://app.getpostman.com/oauth2/callback\""
+    }
+
+    signingConfigs {
+        debug {
+            storeFile rootProject.file("buildsystem/debug.keystore")
+            storePassword "q1w2e3r4t5"
+            keyAlias "androiddebugkey"
+            keyPassword "q1w2e3r4t5"
+        }
+
+        release {
+            storeFile rootProject.file("release.keystore")
+            storePassword System.getenv("RELEASE_STORE_PASSWORD")
+            keyAlias System.getenv("RELEASE_KEY_ALIAS")
+            keyPassword System.getenv("RELEASE_KEY_PASSWORD")
+        }
+    }
+
+    buildTypes {
+
+        debug {
+            signingConfig signingConfigs.debug
+            applicationIdSuffix '.debug'
+            versionNameSuffix "-debug"
+            debuggable true
+            zipAlignEnabled true
+            testCoverageEnabled true
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
+        }
+
+        pro {
+            applicationId packageName
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+        abortOnError false
+    }
+
+    aaptOptions {
+        noCompress 'apk'
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def versionName = defaultConfig.versionName.replace(".", "_")
+                def fileName = outputFile.name.replace(".apk", "-v${versionName}.apk")
+                fileName = fileName.replace("app", "github")
+                println "[FileName]: ${fileName}"
+                if (variant.buildType.name.equals('release')) {
+                    output.outputFile = file("${outputFile.parent}/release/${defaultConfig.versionName}/github-${variant.productFlavors[0].name}-${variant.versionName}.apk".toLowerCase())
+                } else {
+                    output.outputFile = file("${outputFile.parent}/${fileName}")
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    testCompile libraries.junit
+    compile libraries.supportAppCompat
+    compile libraries.supportCardView
+    compile libraries.supportDesign
+    compile libraries.supportRecyclerView
+    compile libraries.supportVectorDrawable
+    compile libraries.supportAnimatedDrawable
+    compile libraries.constraint
+    compile libraries.customtabs
+
+    compile libraries.dagger
+    annotationProcessor libraries.daggerCompiler
+    compile libraries.butterKnife
+    annotationProcessor libraries.butterKnifeCompiler
+    compile libraries.rxJava2
+    compile libraries.rxJava2Interop
+    compile libraries.rxAndroid
+    compile libraries.timber
+
+    compile libraries.okHttp
+    compile libraries.logginInterceptor
+    compile libraries.retrofit
+    compile libraries.retrofitRxJava2
+    compile libraries.retrofitGson
+    compile libraries.gson
+    compile libraries.rxPreferences
+    compile libraries.glide
+    compile libraries.multiStateView
+
+    compile libraries.icepick
+    provided libraries.icepickProcessor
+    compile libraries.prefser
+    compile libraries.multiDex
+    compile libraries.circleImageView
+
+    compile libraries.textDrawable
+    compile libraries.baseAdapterHelper
+}

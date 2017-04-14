@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <FrameLayout
+        android:id="@+id/fl_user"
+        android:layout_width="75dp"
+        android:layout_height="75dp">
+
+        <ImageView
+            android:id="@+id/iv_user"
+            android:layout_gravity="start|left|top"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"/>
+
+        <ImageView
+            android:id="@+id/type"
+            android:layout_gravity="bottom|right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:src="@drawable/ic_fork"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/fl_user"
+        android:layout_toRightOf="@+id/fl_user"
+        android:layout_alignTop="@+id/fl_user"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            tools:text="askdjfdfkjasdfasdfasdfasdfasdfasdfasdfaljsdlkjfakjlsasdfaasdfasdfasdfsdfadkjf"/>
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:maxLines="5"
+            android:ellipsize="end"
+            android:textColor="@color/gray_icon"
+            tools:text="asdfasdfasdfasdf"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_time_small"
+            android:drawablePadding="5dp"
+            android:textSize="14sp"
+            tools:text="asdfasd"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

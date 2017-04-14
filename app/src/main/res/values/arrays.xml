@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="language">
+        <item>Java</item>
+        <item>Kotlin</item>
+        <item>Python</item>
+        <item>Go</item>
+    </string-array>
+
+    <string-array name="repo">
+        <item>README</item>
+        <item>Code</item>
+        <item>Issues</item>
+        <item>Pull requests</item>
+        <item>Commits</item>
+        <item>Releases</item>
+        <item>Contributors</item>
+    </string-array>
+
+    <array name="icons">
+        <item>@drawable/ic_code_small</item>
+        <item>@drawable/ic_code_small</item>
+        <item>@drawable/ic_code_small</item>
+        <item>@drawable/ic_code_small</item>
+        <item>@drawable/ic_code_small</item>
+        <item>@drawable/ic_code_small</item>
+        <item>@drawable/ic_code_small</item>
+    </array>
+
+</resources>

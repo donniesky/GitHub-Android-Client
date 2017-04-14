@@ -1,0 +1,111 @@
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+
+def isJava = plugins.hasPlugin('java')
+// Add checkstyle, findbugs, pmd and lint to the check task.
+// Comment it if already set in root project's build.gradle.
+check.dependsOn 'checkstyle', 'findbugs', 'pmd'
+if (!isJava) {
+    check.dependsOn 'lint'
+}
+
+checkstyle {
+    // will fire "java.lang.ClassNotFoundException: com.puppycrawl.tools.checkstyle
+    // .CheckStyleTask" with version 6.10.1
+    toolVersion '7.4'
+
+    configFile file("${project.rootDir}/quality/checkstyle/checkstyle.xml")
+    configProperties.checkstyleSuppressionFilterPath = file(
+            "${project.rootDir}/quality/checkstyle/suppressions.xml")
+            .absolutePath
+}
+
+task checkstyle(type: Checkstyle, group: 'verification') {
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/test/**'
+    exclude '**/androidTest/**'
+    exclude '**/R.java'
+    exclude '**/BuildConfig.java'
+    classpath = files()
+}
+
+
+findbugs {
+    toolVersion = "3.0.1"
+    ignoreFailures = false
+    effort = "max"
+    reportLevel = "high"
+    excludeFilter = new File("${project.rootDir}/quality/findbugs/findbugs-filter.xml")
+}
+
+task findbugs(type: FindBugs, dependsOn: "assemble", group: 'verification') {
+    if (isJava) {
+        classes = files("${project.rootDir}/${project.getName()}/build/classes")
+    } else {
+        classes = files("${project.rootDir}/${project.getName()}/build/intermediates/classes")
+    }
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        xml {
+            destination "${project.rootDir}/${project.getName()}/build/reports/findbugs/findbugs.xml"
+        }
+        html {
+            destination "${project.rootDir}/${project.getName()}/build/reports/findbugs/findbugs.html"
+        }
+    }
+
+    classpath = files()
+}
+
+
+pmd {
+    toolVersion = '5.5.2'
+    ignoreFailures = false
+    ruleSetFiles = files("${project.rootDir}/quality/pmd/pmd-ruleset.xml")
+    ruleSets = []
+}
+
+task pmd(type: Pmd, group: 'verification') {
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        xml {
+            destination "${project.rootDir}/${project.getName()}/build/reports/pmd/pmd.xml"
+        }
+        html {
+            destination "${project.rootDir}/${project.getName()}/build/reports/pmd/pmd.html"
+        }
+    }
+}
+
+if (!isJava) {
+    android {
+        lintOptions {
+            abortOnError true
+            xmlReport true
+            htmlReport true
+            lintConfig file("${project.rootDir}/quality/lint/lint.xml")
+        }
+
+        testOptions.unitTests.all {
+            testLogging {
+                events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+                outputs.upToDateWhen { false }
+                showStandardStreams = true
+            }
+            jvmArgs '-noverify'
+        }
+    }
+}
