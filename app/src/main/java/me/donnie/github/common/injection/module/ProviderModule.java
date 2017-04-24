@@ -16,6 +16,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import me.donnie.github.BuildConfig;
+import me.donnie.github.common.converter.GithubResponseConverter;
 import me.donnie.github.common.injection.qualifier.ApplicationContext;
 import me.donnie.github.common.injection.qualifier.Auth;
 import me.donnie.github.common.injection.qualifier.Login;
@@ -150,7 +151,7 @@ public class ProviderModule {
     Retrofit provideRetrofit(@Normal final OkHttpClient okHttpClient, final Gson gson) {
         return new Retrofit.Builder().baseUrl(BuildConfig.API_BASE_URL)
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(new GithubResponseConverter(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory
                         .createWithScheduler(io.reactivex.schedulers.Schedulers.io()))
                 .build();
