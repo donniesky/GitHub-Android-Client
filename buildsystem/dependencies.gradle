@@ -11,6 +11,8 @@ ext.versions = [
         circleImageView      : '2.1.0',
         textDrawable         : '1.0.1',
         simpleRv             : '1.1.11',
+        iconics              : '2.8.3@aar',
+        octicons             : '3.2.0.2@aar',
 
         // Reactive
         rxJava2              : '2.0.5',
@@ -18,6 +20,7 @@ ext.versions = [
         rxAndroid            : '2.0.1',
 
         // Analytics & Crash reporting
+        firebase             : '9.6.1',
 
         // others
         dagger               : '2.9',
@@ -39,6 +42,8 @@ ext.versions = [
         multiStateView       : '1.3.0',
         baseAdapter          : '3.0.3',
         baseAdapterHelper    : '2.9.12',
+        markDown             : '1.0.4',
+        richText             : '2.4.7',
 
         // Debugging & Inspecting
         stetho               : '1.4.2',
@@ -71,6 +76,11 @@ ext.libraries = [
         circleImageView         : "de.hdodenhof:circleimageview:$versions.circleImageView",
         customtabs              : "com.android.support:customtabs:$versions.supportLibs",
         textDrawable            : "com.amulyakhare:com.amulyakhare.textdrawable:$versions.textDrawable",
+        iconics                 : "com.mikepenz:iconics-core:$versions.iconics",
+        octicons                : "com.mikepenz:octicons-typeface:$versions.octicons",
+
+        firebase_core           : "com.google.firebase:firebase-core:$versions.firebase",
+        firebase_crash          : "com.google.firebase:firebase-crash:$versions.firebase",
 
         // Reactive.
         rxJava2                 : "io.reactivex.rxjava2:rxjava:$versions.rxJava2",
@@ -100,6 +110,8 @@ ext.libraries = [
         glide                   : "com.github.bumptech.glide:glide:$versions.glide",
         multiStateView          : "com.github.Kennyc1012:MultiStateView:$versions.multiStateView",
         baseAdapterHelper       : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$versions.baseAdapterHelper",
+        markDown                : "com.zzhoujay.markdown:markdown:$versions.markDown",
+        richText                : "com.zzhoujay.richtext:richtext:$versions.richText",
 
         supportAnnotations      : "com.android.support:support-annotations:$versions.supportLibs",
         multiDex                : "com.android.support:multidex:$versions.multiDex",
