@@ -15,6 +15,8 @@ import me.donnie.github.data.entity.Trending;
 public interface MainContract {
 
     interface Navigator extends BaseNavigator {
+        void logout();
+        void navigateToLogin();
         void navigateToEvent();
         void navigateToTrending();
         void navigateToRepo(Event event);

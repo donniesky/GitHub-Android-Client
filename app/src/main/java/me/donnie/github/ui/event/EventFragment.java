@@ -108,6 +108,7 @@ public class EventFragment extends BaseFragment implements
         mAdapter.setAutoLoadMoreSize(2);
         mAdapter.setLoadMoreView(new RLoadMoreView());
         mAdapter.setOnLoadMoreListener(this, mRecyclerView);
+        mAdapter.disableLoadMoreIfNotFullPage();
 
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

@@ -1,6 +1,7 @@
 package me.donnie.github.ui.event;
 
 import com.github.pwittchen.prefser.library.Prefser;
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import me.donnie.github.common.utils.RxUtils;
 import me.donnie.github.common.utils.SchedulerTransformer;
-import me.donnie.github.data.UserRepository;
+import me.donnie.github.data.repository.UserRepository;
 import me.donnie.github.data.entity.Event;
 import timber.log.Timber;
 
@@ -76,6 +77,7 @@ public class EventPresenter implements EventContract.Presenter {
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
+                FirebaseCrash.report(throwable);
                 Timber.tag(TAG).e(throwable.getMessage());
                 view.onEventError(throwable.getMessage());
             }
