@@ -1,0 +1,17 @@
+<com.kennyc.view.MultiStateView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/state"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:msv_emptyView="@layout/view_common_empty"
+    app:msv_errorView="@layout/view_common_error"
+    app:msv_loadingView="@layout/view_common_loading">
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</com.kennyc.view.MultiStateView>
+
