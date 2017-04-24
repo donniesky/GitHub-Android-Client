@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TagsView">
+        <attr name="tag_background" format="reference"/>
+        <attr name="tag_border" format="dimension"/>
+        <attr name="tag_res" format="reference"/>
+        <attr name="tag_tv_size" format="integer"/>
+        <attr name="tag_tv_color" format="color"/>
+    </declare-styleable>
+
+</resources>

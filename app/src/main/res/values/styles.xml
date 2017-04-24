@@ -33,12 +33,12 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="AppTheme.NoActionBar" parent="AppTheme">
+    <style name="AppTheme.NoActionBar" parent="@style/AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.NoTitle" parent="AppTheme">
+    <style name="AppTheme.NoTitle" parent="@style/AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -78,24 +78,24 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <style name="AppTheme.Splash" parent="AppTheme.NoTitle">
+    <style name="AppTheme.Splash" parent="@style/AppTheme.NoTitle">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="AppTheme.Login" parent="AppTheme.NoTitle">
+    <style name="AppTheme.Login" parent="@style/AppTheme.NoTitle">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <!--<item name="android:windowFullscreen">true</item>-->
     </style>
 
-    <style name="AppTheme.Main" parent="AppTheme.NoActionBar">
+    <style name="AppTheme.Main" parent="@style/AppTheme.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
 
-    <style name="AppTheme.Repo" parent="AppTheme.NoActionBar">
+    <style name="AppTheme.Repo" parent="@style/AppTheme.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>

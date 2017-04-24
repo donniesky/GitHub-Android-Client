@@ -19,13 +19,13 @@
     </string-array>
 
     <array name="icons">
-        <item>@drawable/ic_code_small</item>
-        <item>@drawable/ic_code_small</item>
-        <item>@drawable/ic_code_small</item>
-        <item>@drawable/ic_code_small</item>
-        <item>@drawable/ic_code_small</item>
-        <item>@drawable/ic_code_small</item>
-        <item>@drawable/ic_code_small</item>
+        <item>@drawable/ic_markdown</item>
+        <item>@drawable/ic_code_white</item>
+        <item>@drawable/ic_info_outline_white</item>
+        <item>@drawable/ic_pull_request_white</item>
+        <item>@drawable/ic_commits</item>
+        <item>@drawable/ic_releases</item>
+        <item>@drawable/ic_contributor</item>
     </array>
 
 </resources>
