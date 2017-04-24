@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,8 +47,8 @@ public class RepoActivity extends BaseActivity implements RepoContract.View {
     @BindView(R.id.repo)
     TextView tv_repo;
 
-    @BindView(R.id.repo_desc)
-    TextView repo_desc;
+    /*@BindView(R.id.repo_desc)
+    TextView repo_desc;*/
 
     @BindView(R.id.time)
     TextView time;
@@ -71,6 +73,8 @@ public class RepoActivity extends BaseActivity implements RepoContract.View {
     private RepoComponent mRepoComponent;
 
     private String login,repoId,repoUrl;
+
+    private Repo mRepo;
 
     public static Intent getCallingIntent(Context context){
         Intent callingIntent = new Intent(context,RepoActivity.class);
@@ -111,7 +115,7 @@ public class RepoActivity extends BaseActivity implements RepoContract.View {
     }
 
     private void initTab() {
-        mAdapter = new RepoTabAdapter(this, getSupportFragmentManager());
+        mAdapter = new RepoTabAdapter(this, getSupportFragmentManager(), mRepo);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setOffscreenPageLimit(7);
         mTabLayout.setupWithViewPager(mViewPager);
@@ -129,6 +133,7 @@ public class RepoActivity extends BaseActivity implements RepoContract.View {
 
     @Override
     public void getRepoSuccess(Repo repo) {
+        this.mRepo = repo;
         initTab();
         Glide.with(this).load(repo.getOwner().getAvatar_url())
                 .transform(new GlideRoundTransform(this))
@@ -142,7 +147,35 @@ public class RepoActivity extends BaseActivity implements RepoContract.View {
 
         language.setText(repo.getLanguage());
 
-        repo_desc.setText(repo.getDescription());
+        //repo_desc.setText(repo.getDescription());
+    }
+
+    public RepoComponent getRepoComponent() {
+        return mRepoComponent;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.repo, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_star:
+
+                break;
+            case R.id.action_watch:
+
+                break;
+            case R.id.action_pin:
+
+                break;
+        }
+
+        return true;
     }
 
     @Override

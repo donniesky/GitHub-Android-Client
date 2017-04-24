@@ -1,6 +1,7 @@
 package me.donnie.github.ui.repo;
 
 import com.github.pwittchen.prefser.library.Prefser;
+import com.google.firebase.crash.FirebaseCrash;
 
 import javax.inject.Inject;
 
@@ -8,8 +9,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import me.donnie.github.common.utils.RxUtils;
 import me.donnie.github.common.utils.SchedulerTransformer;
-import me.donnie.github.data.RepoRepository;
 import me.donnie.github.data.entity.Repo;
+import me.donnie.github.data.repository.RepoRepository;
 import timber.log.Timber;
 
 /**
@@ -59,6 +60,7 @@ public class RepoPresenter implements RepoContract.Presenter {
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
+                FirebaseCrash.report(throwable);
                 Timber.tag(TAG).e(throwable.getMessage());
             }
         }));
@@ -76,6 +78,7 @@ public class RepoPresenter implements RepoContract.Presenter {
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
+                FirebaseCrash.report(throwable);
                 Timber.tag(TAG).e(throwable.getMessage());
             }
         }));
