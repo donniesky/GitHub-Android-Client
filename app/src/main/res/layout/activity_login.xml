@@ -16,7 +16,7 @@
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="用户名或邮箱"
+            android:hint="@string/et_hint"
             android:maxLines="1"
             android:lines="1"/>
 
@@ -25,7 +25,7 @@
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="密码"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:maxLines="1"
             android:lines="1"/>
@@ -35,13 +35,14 @@
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="登录"/>
+            android:text="@string/login"/>
 
         <Button
+            android:visibility="gone"
             android:id="@+id/open_in_brower"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="打开浏览器登录"/>
+            android:text="@string/login_by_brower"/>
 
     </LinearLayout>
 

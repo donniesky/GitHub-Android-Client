@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
 import android.view.View;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -68,9 +70,16 @@ public class LoginActivity extends BaseActivity
         int id = v.getId();
         switch (id) {
             case R.id.btn_login:
+                Bundle param = new Bundle();
+                param.putString(FirebaseAnalytics.Param.ITEM_NAME, username.getText().toString());
+                param.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "login_button");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, param);
                 mPresenter.login(username.getText().toString(), password.getText().toString(), null);
                 break;
             case R.id.open_in_brower:
+                Bundle bundle = new Bundle();
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "brower_login_button");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
                 mPresenter.loginByBrower(this);
                 break;
         }

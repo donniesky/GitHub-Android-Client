@@ -9,6 +9,7 @@ import android.support.customtabs.CustomTabsIntent;
 import android.text.TextUtils;
 
 import com.github.pwittchen.prefser.library.Prefser;
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.util.Arrays;
 
@@ -20,10 +21,10 @@ import me.donnie.github.BuildConfig;
 import me.donnie.github.common.utils.RxUtils;
 import me.donnie.github.common.utils.SchedulerTransformer;
 import me.donnie.github.common.utils.Util;
-import me.donnie.github.data.UserRepository;
 import me.donnie.github.data.entity.Auth;
 import me.donnie.github.data.entity.Token;
 import me.donnie.github.data.entity.User;
+import me.donnie.github.data.repository.UserRepository;
 import timber.log.Timber;
 
 /**
@@ -99,6 +100,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                             }, new Consumer<Throwable>() {
                                 @Override
                                 public void accept(Throwable throwable) throws Exception {
+                                    FirebaseCrash.report(throwable);
                                     Timber.tag(TAG).e(throwable.getMessage());
                                 }
                             }));
@@ -124,6 +126,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        FirebaseCrash.report(throwable);
                         Timber.tag(TAG).e(throwable.getMessage());
                     }
                 }));
@@ -136,6 +139,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         if (user != null) {
             Timber.tag(TAG).d(user.getName());
             prefser.put("username", user.getLogin());
+            prefser.put("user_avatar", user.getAvatar_url());
             view.onLoginSuccess(user);
         }
     }
