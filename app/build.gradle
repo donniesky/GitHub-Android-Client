@@ -3,7 +3,7 @@ apply from: '../quality/quality.gradle'
 
 def versionMajor = 0
 def versionMinor = 1
-def versionPatch = 0
+def versionPatch = 1
 
 def packageName = "me.donnie.github"
 
@@ -41,7 +41,7 @@ android {
         }
 
         release {
-            storeFile rootProject.file("release.keystore")
+            storeFile rootProject.file("buildsystem/huber.jks")
             storePassword System.getenv("RELEASE_STORE_PASSWORD")
             keyAlias System.getenv("RELEASE_KEY_ALIAS")
             keyPassword System.getenv("RELEASE_KEY_PASSWORD")
@@ -52,7 +52,7 @@ android {
 
         debug {
             signingConfig signingConfigs.debug
-            applicationIdSuffix '.debug'
+            //applicationIdSuffix '.debug'
             versionNameSuffix "-debug"
             debuggable true
             zipAlignEnabled true
@@ -67,7 +67,7 @@ android {
 
     productFlavors {
         dev {
-            applicationIdSuffix ".dev"
+            //applicationIdSuffix ".dev"
         }
 
         pro {
@@ -100,10 +100,10 @@ android {
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 def versionName = defaultConfig.versionName.replace(".", "_")
                 def fileName = outputFile.name.replace(".apk", "-v${versionName}.apk")
-                fileName = fileName.replace("app", "github")
+                fileName = fileName.replace("app", "huber")
                 println "[FileName]: ${fileName}"
                 if (variant.buildType.name.equals('release')) {
-                    output.outputFile = file("${outputFile.parent}/release/${defaultConfig.versionName}/github-${variant.productFlavors[0].name}-${variant.versionName}.apk".toLowerCase())
+                    output.outputFile = file("${outputFile.parent}/release/${defaultConfig.versionName}/huber-${variant.productFlavors[0].name}-${variant.versionName}.apk".toLowerCase())
                 } else {
                     output.outputFile = file("${outputFile.parent}/${fileName}")
                 }
@@ -153,6 +153,13 @@ dependencies {
     compile libraries.multiDex
     compile libraries.circleImageView
 
-    compile libraries.textDrawable
     compile libraries.baseAdapterHelper
+
+    compile libraries.firebase_core
+    compile libraries.firebase_crash
+
+    /*compile libraries.octicons
+    compile libraries.iconics*/
 }
+
+apply plugin: 'com.google.gms.google-services'
