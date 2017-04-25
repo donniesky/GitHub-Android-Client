@@ -4,6 +4,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import me.donnie.github.common.injection.qualifier.Normal;
+import me.donnie.github.data.entity.MarkDown;
+import me.donnie.github.data.entity.ReadMe;
 import me.donnie.github.data.entity.Repo;
 import me.donnie.github.data.entity.Subscription;
 import me.donnie.github.data.source.remote.api.RepoApi;
@@ -34,6 +36,18 @@ public class RemoteRepoSource {
 
     public Observable<Repo> getRepo(String login, String repoId) {
         return mRepoApi.getRepo(login, repoId);
+    }
+
+    public Observable<String> readme(String owner, String repo) {
+        return mRepoApi.readme(owner, repo);
+    }
+
+    public Observable<ReadMe> readmes(String owner, String repo) {
+        return mRepoApi.readmes(owner, repo);
+    }
+
+    public Observable<String> convertReadmeToHtml(MarkDown markDown) {
+        return mRepoApi.convertReadmeToHtml(markDown);
     }
 
     public Observable<String> getReadmeHtml(String url) {

@@ -3,14 +3,13 @@ package me.donnie.github.data.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.Date;
-
 /**
  * @author donnieSky
- * @created_at 2017/4/6.
+ * @created_at 2017/4/19.
  * @description
  */
-public class User implements Parcelable {
+
+public class Assignee implements Parcelable {
 
     private String login;
 
@@ -45,42 +44,6 @@ public class User implements Parcelable {
     private String type;
 
     private boolean site_admin;
-
-    private String name;
-
-    private String company;
-
-    private String blog;
-
-    private String location;
-
-    private String email;
-
-    private boolean hireable;
-
-    private String bio;
-
-    private int public_repos;
-
-    private int public_gists;
-
-    private int followers;
-
-    private int following;
-
-    private Date created_at;
-
-    private Date updated_at;
-
-    private Date date;
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public String getLogin() {
         return login;
@@ -218,113 +181,6 @@ public class User implements Parcelable {
         this.site_admin = site_admin;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getBlog() {
-        return blog;
-    }
-
-    public void setBlog(String blog) {
-        this.blog = blog;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public boolean isHireable() {
-        return hireable;
-    }
-
-    public void setHireable(boolean hireable) {
-        this.hireable = hireable;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public int getPublic_repos() {
-        return public_repos;
-    }
-
-    public void setPublic_repos(int public_repos) {
-        this.public_repos = public_repos;
-    }
-
-    public int getPublic_gists() {
-        return public_gists;
-    }
-
-    public void setPublic_gists(int public_gists) {
-        this.public_gists = public_gists;
-    }
-
-    public int getFollowers() {
-        return followers;
-    }
-
-    public void setFollowers(int followers) {
-        this.followers = followers;
-    }
-
-    public int getFollowing() {
-        return following;
-    }
-
-    public void setFollowing(int following) {
-        this.following = following;
-    }
-
-    public Date getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
-    }
-
-    public Date getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
-    }
-
-    public User() {
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -349,23 +205,12 @@ public class User implements Parcelable {
         dest.writeString(this.received_events_url);
         dest.writeString(this.type);
         dest.writeByte(this.site_admin ? (byte) 1 : (byte) 0);
-        dest.writeString(this.name);
-        dest.writeString(this.company);
-        dest.writeString(this.blog);
-        dest.writeString(this.location);
-        dest.writeString(this.email);
-        dest.writeByte(this.hireable ? (byte) 1 : (byte) 0);
-        dest.writeString(this.bio);
-        dest.writeInt(this.public_repos);
-        dest.writeInt(this.public_gists);
-        dest.writeInt(this.followers);
-        dest.writeInt(this.following);
-        dest.writeLong(this.created_at != null ? this.created_at.getTime() : -1);
-        dest.writeLong(this.updated_at != null ? this.updated_at.getTime() : -1);
-        dest.writeLong(this.date != null ? this.date.getTime() : -1);
     }
 
-    protected User(Parcel in) {
+    public Assignee() {
+    }
+
+    protected Assignee(Parcel in) {
         this.login = in.readString();
         this.id = in.readLong();
         this.avatar_url = in.readString();
@@ -383,34 +228,17 @@ public class User implements Parcelable {
         this.received_events_url = in.readString();
         this.type = in.readString();
         this.site_admin = in.readByte() != 0;
-        this.name = in.readString();
-        this.company = in.readString();
-        this.blog = in.readString();
-        this.location = in.readString();
-        this.email = in.readString();
-        this.hireable = in.readByte() != 0;
-        this.bio = in.readString();
-        this.public_repos = in.readInt();
-        this.public_gists = in.readInt();
-        this.followers = in.readInt();
-        this.following = in.readInt();
-        long tmpCreated_at = in.readLong();
-        this.created_at = tmpCreated_at == -1 ? null : new Date(tmpCreated_at);
-        long tmpUpdated_at = in.readLong();
-        this.updated_at = tmpUpdated_at == -1 ? null : new Date(tmpUpdated_at);
-        long tmpDate = in.readLong();
-        this.date = tmpDate == -1 ? null : new Date(tmpDate);
     }
 
-    public static final Creator<User> CREATOR = new Creator<User>() {
+    public static final Parcelable.Creator<Assignee> CREATOR = new Parcelable.Creator<Assignee>() {
         @Override
-        public User createFromParcel(Parcel source) {
-            return new User(source);
+        public Assignee createFromParcel(Parcel source) {
+            return new Assignee(source);
         }
 
         @Override
-        public User[] newArray(int size) {
-            return new User[size];
+        public Assignee[] newArray(int size) {
+            return new Assignee[size];
         }
     };
 }

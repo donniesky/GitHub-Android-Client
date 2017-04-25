@@ -1,4 +1,4 @@
-package me.donnie.github.data;
+package me.donnie.github.data.repository;
 
 import java.util.List;
 

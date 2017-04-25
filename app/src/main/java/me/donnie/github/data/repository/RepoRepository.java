@@ -1,8 +1,10 @@
-package me.donnie.github.data;
+package me.donnie.github.data.repository;
 
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import me.donnie.github.data.entity.MarkDown;
+import me.donnie.github.data.entity.ReadMe;
 import me.donnie.github.data.entity.Repo;
 import me.donnie.github.data.entity.Subscription;
 import me.donnie.github.data.source.remote.RemoteRepoSource;
@@ -33,6 +35,18 @@ public class RepoRepository {
 
     public Observable<Repo> getRepo(String login, String repoId) {
         return mRemoteRepoSource.getRepo(login, repoId);
+    }
+
+    public Observable<String> readme(String owner, String repo) {
+        return mRemoteRepoSource.readme(owner, repo);
+    }
+
+    public Observable<ReadMe> readmes(String owner, String repo) {
+        return mRemoteRepoSource.readmes(owner, repo);
+    }
+
+    public Observable<String> convertReadmeToHtml(MarkDown markDown) {
+        return mRemoteRepoSource.convertReadmeToHtml(markDown);
     }
 
     public Observable<String> getReadmeHtml(String url) {

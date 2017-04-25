@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author donnieSky
@@ -33,13 +34,17 @@ public class Issue implements Parcelable {
 
     private User user;
 
-    private String state;
+    private List<Label> labels;
+
+    private StateType state;
 
     private boolean locked;
 
-    private String assignee;
+    private Assignee assignee;
 
-    private String milestone;
+    private List<Assignee> assignees;
+
+    private MileStone milestone;
 
     private int comments;
 
@@ -131,11 +136,11 @@ public class Issue implements Parcelable {
         this.user = user;
     }
 
-    public String getState() {
+    public StateType getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(StateType state) {
         this.state = state;
     }
 
@@ -147,19 +152,19 @@ public class Issue implements Parcelable {
         this.locked = locked;
     }
 
-    public String getAssignee() {
+    public Assignee getAssignee() {
         return assignee;
     }
 
-    public void setAssignee(String assignee) {
+    public void setAssignee(Assignee assignee) {
         this.assignee = assignee;
     }
 
-    public String getMilestone() {
+    public MileStone getMilestone() {
         return milestone;
     }
 
-    public void setMilestone(String milestone) {
+    public void setMilestone(MileStone milestone) {
         this.milestone = milestone;
     }
 
@@ -203,6 +208,10 @@ public class Issue implements Parcelable {
         this.body = body;
     }
 
+
+    public Issue() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -220,18 +229,17 @@ public class Issue implements Parcelable {
         dest.writeInt(this.number);
         dest.writeString(this.title);
         dest.writeParcelable(this.user, flags);
-        dest.writeString(this.state);
+        dest.writeTypedList(this.labels);
+        dest.writeInt(this.state == null ? -1 : this.state.ordinal());
         dest.writeByte(this.locked ? (byte) 1 : (byte) 0);
-        dest.writeString(this.assignee);
-        dest.writeString(this.milestone);
+        dest.writeParcelable(this.assignee, flags);
+        dest.writeTypedList(this.assignees);
+        dest.writeParcelable(this.milestone, flags);
         dest.writeInt(this.comments);
         dest.writeLong(this.created_at != null ? this.created_at.getTime() : -1);
         dest.writeLong(this.updated_at != null ? this.updated_at.getTime() : -1);
         dest.writeLong(this.closed_at != null ? this.closed_at.getTime() : -1);
         dest.writeString(this.body);
-    }
-
-    public Issue() {
     }
 
     protected Issue(Parcel in) {
@@ -245,10 +253,13 @@ public class Issue implements Parcelable {
         this.number = in.readInt();
         this.title = in.readString();
         this.user = in.readParcelable(User.class.getClassLoader());
-        this.state = in.readString();
+        this.labels = in.createTypedArrayList(Label.CREATOR);
+        int tmpState = in.readInt();
+        this.state = tmpState == -1 ? null : StateType.values()[tmpState];
         this.locked = in.readByte() != 0;
-        this.assignee = in.readString();
-        this.milestone = in.readString();
+        this.assignee = in.readParcelable(Assignee.class.getClassLoader());
+        this.assignees = in.createTypedArrayList(Assignee.CREATOR);
+        this.milestone = in.readParcelable(MileStone.class.getClassLoader());
         this.comments = in.readInt();
         long tmpCreated_at = in.readLong();
         this.created_at = tmpCreated_at == -1 ? null : new Date(tmpCreated_at);
@@ -259,7 +270,7 @@ public class Issue implements Parcelable {
         this.body = in.readString();
     }
 
-    public static final Parcelable.Creator<Issue> CREATOR = new Parcelable.Creator<Issue>() {
+    public static final Creator<Issue> CREATOR = new Creator<Issue>() {
         @Override
         public Issue createFromParcel(Parcel source) {
             return new Issue(source);

@@ -30,6 +30,16 @@ public class Event implements Parcelable {
 
     private Date created_at;
 
+    private Organization org;
+
+    public Organization getOrg() {
+        return org;
+    }
+
+    public void setOrg(Organization org) {
+        this.org = org;
+    }
+
     public long getId() {
         return id;
     }
@@ -86,6 +96,9 @@ public class Event implements Parcelable {
         this.created_at = created_at;
     }
 
+    public Event() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -100,9 +113,7 @@ public class Event implements Parcelable {
         dest.writeParcelable(this.payload, flags);
         dest.writeByte(this.pub ? (byte) 1 : (byte) 0);
         dest.writeLong(this.created_at != null ? this.created_at.getTime() : -1);
-    }
-
-    public Event() {
+        dest.writeParcelable(this.org, flags);
     }
 
     protected Event(Parcel in) {
@@ -115,6 +126,7 @@ public class Event implements Parcelable {
         this.pub = in.readByte() != 0;
         long tmpCreated_at = in.readLong();
         this.created_at = tmpCreated_at == -1 ? null : new Date(tmpCreated_at);
+        this.org = in.readParcelable(Organization.class.getClassLoader());
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {

@@ -2,10 +2,16 @@ package me.donnie.github.data.source.remote.api;
 
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import io.reactivex.Observable;
+import me.donnie.github.data.entity.Label;
+import me.donnie.github.data.entity.MarkDown;
+import me.donnie.github.data.entity.ReadMe;
 import me.donnie.github.data.entity.Repo;
 import me.donnie.github.data.entity.Subscription;
 import retrofit2.Response;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -34,6 +40,23 @@ public interface RepoApi {
     @Headers({"Accept: application/vnd.github.drax-preview+json"})
     Observable<Repo> getRepo(@Path("login") String login,
                              @Path("repoId") String repoId);
+
+    @GET("repos/{owner}/{repo}/labels")
+    Observable<List<Label>> getLabels(@Path("owner") String owner,
+                                      @Path("repo") String repo);
+
+    @Headers("Accept: application/vnd.github.html")
+    @GET("repos/{owner}/{repo}/readme")
+    Observable<String> readme(@Path("owner") String owner,
+                              @Path("repo") String repo);
+
+    @GET("repos/{owner}/{repo}/readme")
+    Observable<ReadMe> readmes(@Path("owner") String owner,
+                              @Path("repo") String repo);
+
+    @Headers("Accept: application/vnd.github.html")
+    @POST("markdown")
+    Observable<String> convertReadmeToHtml(@Body MarkDown markDown);
 
     @GET
     @Headers("Accept: application/vnd.github.html")
@@ -66,5 +89,6 @@ public interface RepoApi {
     @DELETE("user/subscriptions/{owner}/{repo}")
     Observable<Response<Boolean>> unwatchRepo(@Path("owner") String owner,
                                               @Path("repo") String repo);
+
 
 }
