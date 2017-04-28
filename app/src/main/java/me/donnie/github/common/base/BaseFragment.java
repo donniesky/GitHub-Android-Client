@@ -9,12 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.pwittchen.prefser.library.Prefser;
+import com.google.firebase.crash.FirebaseCrash;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import icepick.Icepick;
 import me.donnie.github.common.App;
-import me.donnie.github.common.Navigator;
 import me.donnie.github.common.injection.component.AppComponent;
 import me.donnie.github.common.utils.NetWorkUtil;
 import me.donnie.github.common.utils.ToastUtil;
@@ -30,8 +30,6 @@ public abstract class BaseFragment extends Fragment {
 
     private Unbinder mUnbinder;
 
-    protected Navigator navigator;
-
     protected ToastUtil toast;
 
     protected NetWorkUtil network;
@@ -45,7 +43,7 @@ public abstract class BaseFragment extends Fragment {
         setupComponent();
         super.onCreate(savedInstanceState);
         Timber.tag("BaseFragment").d("onCreate");
-        navigator = getAppComponent().navigator();
+        FirebaseCrash.log("Fragment onCreate");
         toast = getAppComponent().toast();
         network = getAppComponent().netWork();
         prefser = getAppComponent().prefser();
@@ -60,19 +58,20 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        FirebaseCrash.log("Fragment onCreateView");
         return inflater.inflate(getLayoutResId(), container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FirebaseCrash.log("Fragment onViewCreated");
         Icepick.restoreInstanceState(this, savedInstanceState);
         mUnbinder = ButterKnife.bind(this, view);
 
+        isPrepared = true;
         initView(view);
         initData();
-
-        isPrepared = true;
     }
 
     protected abstract void setupComponent();
@@ -90,7 +89,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Timber.tag("BaseFragment").d("onDestoryView");
         mUnbinder.unbind();
+        FirebaseCrash.log("Fragment onDestroyView");
+        Timber.tag("BaseFragment").d("onDestoryView");
     }
 }
