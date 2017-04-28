@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply from: '../quality/quality.gradle'
 
 def versionMajor = 0
@@ -30,6 +32,14 @@ android {
         buildConfigField "String", "GITHUB_CLIENT_ID", "\"e0c1640074d6e23acecd\""
         buildConfigField "String", "GITHUB_SECRET", "\"79537f81e49da27a7a219da617728a009a770ee1\""
         buildConfigField "String", "REDIRECT_URL", "\"https://app.getpostman.com/oauth2/callback\""
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    kapt {
+        generateStubs = true
     }
 
     signingConfigs {
@@ -130,8 +140,9 @@ dependencies {
 
     compile libraries.dagger
     annotationProcessor libraries.daggerCompiler
+    kapt libraries.daggerCompiler
     compile libraries.butterKnife
-    annotationProcessor libraries.butterKnifeCompiler
+    kapt libraries.butterKnifeCompiler
     compile libraries.rxJava2
     compile libraries.rxJava2Interop
     compile libraries.rxAndroid
@@ -157,6 +168,8 @@ dependencies {
 
     compile libraries.firebase_core
     compile libraries.firebase_crash
+
+    compile libraries.kotlin_stdlib
 
     /*compile libraries.octicons
     compile libraries.iconics*/
