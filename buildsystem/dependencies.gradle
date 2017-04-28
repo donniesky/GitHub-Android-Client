@@ -4,6 +4,8 @@ ext.versions = [
         compileSdk           : 25,
         buildTools           : '25.0.2',
 
+        kotlin               : '1.1.2',
+
         // UI libs
         supportLibs          : '25.3.1',
         constraint           : '1.0.2',
@@ -78,6 +80,10 @@ ext.libraries = [
         textDrawable            : "com.amulyakhare:com.amulyakhare.textdrawable:$versions.textDrawable",
         iconics                 : "com.mikepenz:iconics-core:$versions.iconics",
         octicons                : "com.mikepenz:octicons-typeface:$versions.octicons",
+
+        kotlin_stdlib           : "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin",
+        kotlin_runtime          : "org.jetbrains.kotlin:kotlin-runtime:$versions.kotlin",
+        kotlin_test             : "org.jetbrains.kotlin:kotlin-test:$versions.kotlin",
 
         firebase_core           : "com.google.firebase:firebase-core:$versions.firebase",
         firebase_crash          : "com.google.firebase:firebase-crash:$versions.firebase",
