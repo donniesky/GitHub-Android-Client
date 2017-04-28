@@ -1,6 +1,7 @@
 package me.donnie.github.ui.trending;
 
 import com.github.pwittchen.prefser.library.Prefser;
+import com.google.firebase.crash.FirebaseCrash;
 
 import java.util.List;
 import java.util.Map;
@@ -11,8 +12,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import me.donnie.github.common.utils.RxUtils;
 import me.donnie.github.common.utils.SchedulerTransformer;
-import me.donnie.github.data.TrendingRepository;
 import me.donnie.github.data.entity.Trending;
+import me.donnie.github.data.repository.TrendingRepository;
 import timber.log.Timber;
 
 /**
@@ -64,6 +65,7 @@ public class TrendingPresenter implements TrendingContract.Presenter {
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
+                FirebaseCrash.report(throwable);
                 Timber.tag(TAG).e(throwable.getMessage());
                 view.onNetWorkError("");
             }
@@ -82,6 +84,7 @@ public class TrendingPresenter implements TrendingContract.Presenter {
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
+                FirebaseCrash.report(throwable);
                 Timber.tag(TAG).e(throwable.getMessage());
                 view.onNetWorkError("");
             }
@@ -100,6 +103,7 @@ public class TrendingPresenter implements TrendingContract.Presenter {
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
+                FirebaseCrash.report(throwable);
                 Timber.tag(TAG).e(throwable.getMessage());
                 view.onNetWorkError("");
             }

@@ -21,6 +21,7 @@ public interface MainContract {
         void navigateToTrending();
         void navigateToRepo(Event event);
         void navigateToRepo(Trending trending);
+        void navigateToProfile();
     }
 
     interface View extends BaseView {

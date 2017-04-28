@@ -99,6 +99,13 @@ MainContract.View {
         if (savedInstanceState == null) {
             mNavigator.navigateToEvent();
         }
+
+        avarar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mNavigator.navigateToProfile();
+            }
+        });
     }
 
     @Override

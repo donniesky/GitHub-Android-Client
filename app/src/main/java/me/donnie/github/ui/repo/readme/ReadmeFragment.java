@@ -86,6 +86,9 @@ implements ReadmeContract.View {
 
     @Override
     protected void lazyLoad() {
+        if (!isPrepared || !isVisible) {
+            return;
+        }
         if (mRepo != null) {
             mPresenter.loadReadme(mRepo.getOwner().getLogin(), mRepo.getName());
         }

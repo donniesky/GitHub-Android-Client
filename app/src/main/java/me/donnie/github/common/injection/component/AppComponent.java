@@ -7,7 +7,6 @@ import com.github.pwittchen.prefser.library.Prefser;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import me.donnie.github.common.Navigator;
 import me.donnie.github.common.injection.module.AppModule;
 import me.donnie.github.common.injection.module.ProviderModule;
 import me.donnie.github.common.injection.module.UtilsModule;
@@ -33,8 +32,6 @@ public interface AppComponent {
 
     @ApplicationContext
     Context getApplicationContext();
-
-    Navigator navigator();
 
     NetWorkUtil netWork();
 

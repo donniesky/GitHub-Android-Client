@@ -18,6 +18,14 @@
         <item>Contributors</item>
     </string-array>
 
+    <string-array name="profile">
+        <item>Overview</item>
+        <item>Repositories</item>
+        <item>Stars</item>
+        <item>Followers</item>
+        <item>Following</item>
+    </string-array>
+
     <array name="icons">
         <item>@drawable/ic_markdown</item>
         <item>@drawable/ic_code_white</item>
