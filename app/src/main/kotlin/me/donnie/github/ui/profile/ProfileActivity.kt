@@ -4,18 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_profile.*
-import kotlinx.android.synthetic.main.content_profile.*
 import me.donnie.github.R
 import me.donnie.github.common.base.BaseActivity
 import me.donnie.github.common.injection.component.AppComponent
+import me.donnie.github.common.transform.GlideCircleTransform
 import me.donnie.github.data.entity.User
 import javax.inject.Inject
 
 /**
  * @author donnieSky
  * @created_at 2017/4/26.
- * @description
+ * @description 个人详情页
  * @version
  */
 class ProfileActivity : BaseActivity(), ProfileContract.View {
@@ -64,13 +65,24 @@ class ProfileActivity : BaseActivity(), ProfileContract.View {
     }
 
     override fun initData() {
-        //mPresenter.loadUser()
-        toolbar.title = "profile"
+        mPresenter.loadUser()
     }
 
     override fun loadUserSuccess(user: User) {
         if (user != null) {
-            tv_user.text = user.location
+            toolbar.title = user.login
+            Glide.with(this).load(user.avatar_url)
+                    .transform(GlideCircleTransform(this))
+                    .crossFade().into(avatar)
+            login.text = user.login
+            name.text = user.name
+            bio.text = user.bio
+            create_time.text = user.created_at.toString()
+            location.text = user.location
+            blog.text = user.blog
+            repos.text = user.public_repos.toString()
+            following.text = user.following.toString()
+            follower.text = user.followers.toString()
         }
     }
 
