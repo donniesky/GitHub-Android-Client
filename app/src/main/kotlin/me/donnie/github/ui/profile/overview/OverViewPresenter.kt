@@ -7,6 +7,7 @@ import me.donnie.github.common.utils.RxUtils
 import me.donnie.github.common.utils.SchedulerTransformer
 import me.donnie.github.data.entity.User
 import me.donnie.github.data.repository.UserRepository
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -16,6 +17,10 @@ import javax.inject.Inject
  * @version
  */
 class OverViewPresenter @Inject constructor(var repository: UserRepository) : OverViewContract.Presenter {
+
+    companion object{
+        private val TAG = OverViewPresenter::class.simpleName
+    }
 
     @Inject
     lateinit var prefser: Prefser
@@ -42,6 +47,7 @@ class OverViewPresenter @Inject constructor(var repository: UserRepository) : Ov
                     }
                 }, object : Consumer<Throwable> {
                     override fun accept(e: Throwable) {
+                        Timber.tag(TAG).e(e.message)
                         view?.onError()
                     }
                 }))

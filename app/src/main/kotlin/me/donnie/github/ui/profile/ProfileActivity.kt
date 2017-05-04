@@ -61,6 +61,7 @@ class ProfileActivity : BaseActivity(), ProfileContract.View {
             }
         })
         viewpager.adapter = ProfileTabAdapter(this, supportFragmentManager)
+        viewpager.offscreenPageLimit = 5
         tab.setupWithViewPager(viewpager)
     }
 
@@ -80,9 +81,9 @@ class ProfileActivity : BaseActivity(), ProfileContract.View {
             create_time.text = user.created_at.toString()
             location.text = user.location
             blog.text = user.blog
-            repos.text = user.public_repos.toString()
+            /*repos.text = user.public_repos.toString()
             following.text = user.following.toString()
-            follower.text = user.followers.toString()
+            follower.text = user.followers.toString()*/
         }
     }
 
