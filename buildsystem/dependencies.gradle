@@ -15,6 +15,7 @@ ext.versions = [
         simpleRv             : '1.1.11',
         iconics              : '2.8.3@aar',
         octicons             : '3.2.0.2@aar',
+        taggroup             : '1.4@aar',
 
         // Reactive
         rxJava2              : '2.0.5',
@@ -80,10 +81,12 @@ ext.libraries = [
         textDrawable            : "com.amulyakhare:com.amulyakhare.textdrawable:$versions.textDrawable",
         iconics                 : "com.mikepenz:iconics-core:$versions.iconics",
         octicons                : "com.mikepenz:octicons-typeface:$versions.octicons",
+        taggroup                : "me.gujun.android.taggroup:library:$versions.taggroup",
 
         kotlin_stdlib           : "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin",
         kotlin_runtime          : "org.jetbrains.kotlin:kotlin-runtime:$versions.kotlin",
         kotlin_test             : "org.jetbrains.kotlin:kotlin-test:$versions.kotlin",
+        kotlin_reflect          : "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlin",
 
         firebase_core           : "com.google.firebase:firebase-core:$versions.firebase",
         firebase_crash          : "com.google.firebase:firebase-crash:$versions.firebase",
