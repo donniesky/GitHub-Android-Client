@@ -9,6 +9,7 @@ import me.donnie.github.common.injection.qualifier.Login;
 import me.donnie.github.common.injection.qualifier.Normal;
 import me.donnie.github.data.entity.Auth;
 import me.donnie.github.data.entity.Event;
+import me.donnie.github.data.entity.Repo;
 import me.donnie.github.data.entity.Token;
 import me.donnie.github.data.entity.User;
 import me.donnie.github.data.source.remote.api.AuthApi;
@@ -54,5 +55,25 @@ public class RemoteUserSource {
 
     public Observable<List<Event>> receiveEvents(String username, int page) {
         return normalApi.receiveEvents(username, page);
+    }
+
+    public Observable<List<Event>> getEvents(String username, int page) {
+        return normalApi.getEvents(username, page);
+    }
+
+    public Observable<List<Repo>> getRepos(String username, int page) {
+        return normalApi.getRepos(username, page);
+    }
+
+    public Observable<List<Repo>> getStars(String username, int page) {
+        return normalApi.getStars(username, page);
+    }
+
+    public Observable<List<User>> getFollowers(String username, int page) {
+        return normalApi.getFollowers(username, page);
+    }
+
+    public Observable<List<User>> getFollowing(String username, int page) {
+        return normalApi.getFollowing(username, page);
     }
 }
