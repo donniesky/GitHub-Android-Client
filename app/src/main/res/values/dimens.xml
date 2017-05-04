@@ -65,4 +65,6 @@
     <dimen name="dp_33">33dp</dimen>
     <dimen name="dp_34">34dp</dimen>
     <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_80">80dp</dimen>
+    <dimen name="dp_320">320dp</dimen>
 </resources>
